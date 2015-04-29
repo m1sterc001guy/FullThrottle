@@ -17,14 +17,9 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		scheduleInitialAlarm(5000);
-		disableWifi();
+		scheduleInitialAlarm(900);
 	}
 	
-	private void disableWifi(){
-		WifiManager wifi = (WifiManager) getSystemService(Context.WIFI_SERVICE);
-		wifi.disconnect();
-	}
 	
 	private void scheduleInitialAlarm(int milliseconds){
 		Long time = new GregorianCalendar().getTimeInMillis() + milliseconds;
