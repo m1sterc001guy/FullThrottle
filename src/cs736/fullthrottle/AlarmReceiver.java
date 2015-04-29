@@ -29,36 +29,8 @@ import android.os.PowerManager;
 import android.util.Log;
 
 public class AlarmReceiver extends BroadcastReceiver {
-
-	private final int LOCATION_REFRESH_TIME = 1;
-	private final int LOCATION_REFRESH_DISTANCE = 1;
 	//never release the wakelock
 	boolean running = false;
-	
-	private final LocationListener locationListener = new LocationListener(){
-
-		@Override
-		public void onLocationChanged(Location location) {
-			Log.d("Locaiton", "Latitude: " + location.getLatitude() + " Longitude: " + location.getLongitude());
-		}
-
-		@Override
-		public void onProviderDisabled(String provider) {
-			
-		}
-
-		@Override
-		public void onProviderEnabled(String provider) {
-			
-		}
-
-		@Override
-		public void onStatusChanged(String provider, int status, Bundle extras) {
-			
-		}
-		
-	};
-	
 	
 	@Override
 	public void onReceive(Context context, Intent intent) {
@@ -79,9 +51,6 @@ public class AlarmReceiver extends BroadcastReceiver {
 		PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
 		PowerManager.WakeLock w1 = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "My partial wakelock");
 		w1.acquire();
-		//request location constantly
-		LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, LOCATION_REFRESH_TIME, LOCATION_REFRESH_DISTANCE, locationListener);
 		if(!running){
 			running = true;
 			ForeverThread f = new ForeverThread();
